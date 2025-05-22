@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Writer's Book Shop</title>
+
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  
+  <style>
+    body {
+      background-color: #E8F9FF;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .header-box {
+      background-color: #9EC6F3;
+      width: 100vw;
+      padding: 20px;
+      text-align: center;
+      color: white;
+      font-size: 2rem;
+    }
+
+    ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+
+    li {
+      margin: 10px 0;
+    }
+
+    a {
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    a:hover {
+      color: #007BFF;
+    }
+
+    .book-list {
+      margin-top: 10px;
+      padding-left: 20px;
+    }
+
+    .book-item {
+      margin: 5px 0;
+    }
+
+    .info-box {
+      background: #fff;
+      border-left: 4px solid #9EC6F3;
+      padding: 15px;
+      margin: 20px;
+      border-radius: 4px;
+    }
+
+    .writer-section {
+      margin: 20px;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      color: #005792;
+      margin-bottom: 10px;
+      border-bottom: 2px solid #9EC6F3;
+      padding-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <!--x-data derective-->
+<div x-data="{
+  selectedWriter: null,
+
+  banglaWriters: [
+    { 
+      name: 'Rabindranath Tagore',
+      info: 'রবীন্দ্রনাথ ঠাকুর: কবি, নাট্যকার, সঙ্গীতজ্ঞ ও চিত্রশিল্পী; বাংলা সাহিত্যে প্রথম নোবেল বিজয়ী (1913)।',
+      books: ['Gitanjali', 'The Home and the World', 'Chokher Bali']
+    },
+    {
+      name: 'Satyajit Ray',
+      info: 'সত্যজিৎ রায়: বিশ্বখ্যাত চলচ্চিত্র নির্মাতা, চিত্রনাট্যকার ও লেখক; Feluda সিরিজের স্রষ্টা।',
+      books: ['The Apu Trilogy', 'Feluda', 'Goopy Gyne Bagha Byne']
+    },
+    {
+      name: 'Kazi Nazrul Islam',
+      info: 'কাজী নজরুল ইসলাম: জাতীয় কবি; বিদ্রোহী কবিতার জন্য খ্যাত।',
+      books: ['Bidrohi', 'Bisher Banshi', 'Rajbonshi']
+    }
+  ],
+  englishWriters: [
+    {
+      name: 'William Shakespeare',
+      info: 'William Shakespeare: Renowned English playwright and poet, often called the greatest writer in the English language.',
+      books: ['Hamlet', 'Romeo and Juliet', 'Macbeth']
+    },
+    {
+      name: 'Jane Austen',
+      info: 'Jane Austen: English novelist known primarily for her six major novels interpreting the British landed gentry.',
+      books: ['Pride and Prejudice', 'Sense and Sensibility', 'Emma']
+    }
+  ],
+  showBooks(writer) {
+    this.selectedWriter = writer;
+  }
+}">
+
+
+  <div class="header-box">
+    <h1><i>Welcome to our online Book Shop</i></h1>
+  </div>
+
+  <!-- Bangla Writers -->
+  <div class="writer-section">
+    <h2 class="section-title">Bangla Writers</h2>
+    <ul>
+      <template x-for="writer in banglaWriters" :key="writer.name">
+        <li>
+          <a @click.prevent="showBooks(writer)" x-text="writer.name"></a>
+        </li>
+      </template>
+    </ul>
+  </div>
+
+  <!-- English Writers -->
+  <div class="writer-section">
+    <h2 class="section-title">English Writers</h2>
+    <ul>
+      <template x-for="writer in englishWriters" :key="writer.name">
+        <li>
+          <a @click.prevent="showBooks(writer)" x-text="writer.name"></a>
+        </li>
+      </template>
+    </ul>
+  </div>
+
+  <!-- Writer Info -->
+  <div x-show="selectedWriter" x-cloak class="info-box">
+    <h3 x-text="selectedWriter.name"></h3>
+    <p x-text="selectedWriter.info"></p>
+  </div>
+
+  <!-- Books Display -->
+  <div x-show="selectedWriter" x-cloak>
+    <h2 x-text="selectedWriter.name + ' Books Available Now:'"></h2>
+    <ul class="book-list">
+      <template x-for="book in selectedWriter.books" :key="book">
+        <li class="book-item" x-text="book"></li>
+      </template>
+    </ul>
+  </div>
+
+</div>
+
+</body>
+</html>
